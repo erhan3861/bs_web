@@ -19,60 +19,95 @@
     }
 
     .navbar {
-      height: 92px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 8%;
-      background: rgba(255, 255, 255, 0.94);
-      color: #111827;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7.5%;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 
-    .logo {
-      font-weight: 900;
-      font-size: 20px;
-    }
+  background: rgba(11, 18, 32, 0.72);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 
-    .nav-links {
-      display: flex;
-      gap: 34px;
-      font-size: 14px;
-      font-weight: 800;
-    }
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+}
 
-    .nav-links a {
-      color: #334155;
-      text-decoration: none;
-      transition: 0.25s ease;
-    }
+.logo {
+  width: 158px;
+  height: 46px;
+  border-radius: 16px;
 
-    .nav-links a:hover {
-      color: #ff6a00;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .contact-btn {
-      border: none;
-      background: #0b1220;
-      color: white;
-      padding: 15px 24px;
-      border-radius: 14px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
+  background: #181f2e;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
-    .contact-btn:hover {
-      background: #ff6a00;
-      transform: translateY(-2px);
-    }
+.logo img {
+  height: 32px;
+  max-width: 128px;
+  object-fit: contain;
+  display: block;
+}
 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-links a {
+  color: rgba(248, 250, 252, 0.76);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 15px;
+  border-radius: 999px;
+  transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.contact-btn {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(135deg, #ff9a3d, #ff6a00);
+  color: white;
+
+  padding: 12px 21px;
+  border-radius: 15px;
+
+  font-size: 14px;
+  font-weight: 950;
+  cursor: pointer;
+
+  box-shadow: 0 14px 36px rgba(255, 106, 0, 0.24);
+  transition: 0.25s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(255, 106, 0, 0.34);
+}
     .hero {
-      min-height: calc(100vh - 92px);
+      min-height: calc(100vh - 72px);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
@@ -404,11 +439,22 @@
     }
 
     @media (max-width: 1020px) {
+      .navbar {
+        height: 68px;
+        padding: 0 6%;
+      }
+
+      .logo img {
+        width: 400px;
+        /* height: 100px; */
+      }
+
       .nav-links {
         display: none;
       }
 
       .hero {
+        min-height: calc(100vh - 68px);
         grid-template-columns: 1fr;
         padding: 70px 6%;
       }
@@ -430,7 +476,9 @@
 
 <body>
   <header class="navbar">
-    <div class="logo">Bilişim School</div>
+    <a class="logo" href="#">
+      <img src="logo-white.svg"  alt="Bilişim School" />
+    </a>
 
     <nav class="nav-links">
       <a href="#">Hakkımızda</a>
