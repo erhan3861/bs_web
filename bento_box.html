@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bilişim School Bento</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #05050b;
+      font-family: Inter, Arial, sans-serif;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .why-wrapper {
+      width: 100%;
+      max-width: 1460px;
+      height: calc(100vh - 36px);
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      grid-template-rows: 1fr 300px;
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,145,0,.11), transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(109,92,207,.16), transparent 34%),
+        linear-gradient(135deg, #080811 0%, #070711 55%, #10081c 100%);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at var(--x, 50%) var(--y, 50%),
+        rgba(255,145,0,.18),
+        transparent 30%
+      );
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    .hero {
+      padding: 58px;
+    }
+
+    #neuralCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .92;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      color: #ff9500;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: .18em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff9500;
+      box-shadow: 0 0 18px #ff9500;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(52px, 6vw, 84px);
+      line-height: .96;
+      letter-spacing: -.075em;
+      font-weight: 950;
+    }
+
+    h1 strong {
+      color: #ff9f1c;
+      font-style: normal;
+    }
+
+    .lead {
+      margin-top: 28px;
+      max-width: 640px;
+      color: rgba(255,255,255,.58);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .hero-link {
+      position: absolute;
+      right: 58px;
+      bottom: 44px;
+      z-index: 2;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .hero-link:hover { color: #ff9f1c; }
+
+    .stat {
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .experience-visual {
+      position: relative;
+      height: 160px;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+    }
+
+    .experience-badge {
+      position: relative;
+      z-index: 3;
+      width: 104px;
+      height: 104px;
+      border-radius: 30px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,145,0,.1);
+      border: 1px solid rgba(255,145,0,.44);
+      box-shadow:
+        0 0 42px rgba(255,145,0,.28),
+        inset 0 0 28px rgba(255,145,0,.12);
+      animation: float 3.4s ease-in-out infinite;
+    }
+
+    .experience-badge svg {
+      width: 50px;
+      height: 50px;
+      stroke: #ff9f1c;
+      filter: drop-shadow(0 0 13px rgba(255,145,0,.9));
+    }
+
+    .rings {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .rings span {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,145,0,.24);
+      animation: ring 3s ease-out infinite;
+    }
+
+    .rings span:nth-child(2) { animation-delay: .8s; }
+    .rings span:nth-child(3) { animation-delay: 1.6s; }
+
+    .stat-label {
+      color: #ff9f1c;
+      font-size: 13px;
+      letter-spacing: .24em;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .stat-number {
+      font-size: 108px;
+      line-height: .86;
+      font-weight: 950;
+      color: #ff9f1c;
+      letter-spacing: -.08em;
+    }
+
+    .stat-title {
+      margin-top: 18px;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .stat-desc {
+      margin-top: 10px;
+      color: rgba(255,255,255,.52);
+      line-height: 1.55;
+      font-size: 15px;
+      max-width: 270px;
+    }
+
+    .wave {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 96px;
+      opacity: .55;
+      background:
+        radial-gradient(circle at 60% 55%, rgba(255,145,0,.7), transparent 3%),
+        repeating-linear-gradient(90deg, rgba(255,145,0,.35) 0 2px, transparent 2px 8px);
+      mask-image: linear-gradient(to top, black, transparent);
+      animation: waveMove 5s linear infinite;
+    }
+
+    .bottom {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 26px 28px;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      align-items: center;
+      gap: 24px;
+      transition: transform .3s ease, border-color .3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,145,0,.36);
+    }
+
+    .feature-no {
+      position: absolute;
+      left: 28px;
+      top: 22px;
+      z-index: 3;
+      font-size: 18px;
+      font-weight: 950;
+      color: #ff9500;
+      letter-spacing: .08em;
+    }
+
+    .feature:nth-child(2) .feature-no { color: #6d5ccf; }
+    .feature:nth-child(3) .feature-no { color: #bb86fc; }
+
+    .visual {
+      position: relative;
+      width: 190px;
+      height: 190px;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+    }
+
+    .people-icon,
+    .cube-icon,
+    .eco-icon {
+      width: 124px;
+      height: 124px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 22px rgba(255,145,0,.45));
+    }
+
+    .people-icon svg,
+    .cube-icon svg,
+    .eco-icon svg {
+      width: 96px;
+      height: 96px;
+      stroke-width: 1.7;
+      fill: none;
+    }
+
+    .people-icon svg { stroke: #ff9f1c; }
+    .cube-icon svg { stroke: #6d72ff; filter: drop-shadow(0 0 14px #4b5cff); }
+    .eco-icon svg { stroke: #bb86fc; filter: drop-shadow(0 0 14px #bb86fc); }
+
+    .visual::before,
+    .visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      opacity: .45;
+      animation: rotate 10s linear infinite;
+    }
+
+    .visual::before {
+      width: 160px;
+      height: 72px;
+      transform: rotate(-18deg);
+    }
+
+    .visual::after {
+      width: 150px;
+      height: 58px;
+      transform: rotate(28deg);
+      animation-duration: 13s;
+      animation-direction: reverse;
+    }
+
+    .visual.orange { color: #ff9f1c; }
+    .visual.blue { color: #6d72ff; }
+    .visual.purple { color: #bb86fc; }
+
+    .base-rings {
+      position: absolute;
+      bottom: 8px;
+      width: 150px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      opacity: .35;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    .base-rings::before,
+    .base-rings::after {
+      content: "";
+      position: absolute;
+      inset: 9px 20px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      opacity: .55;
+    }
+
+    .feature-content {
+      position: relative;
+      z-index: 3;
+      border-left: 1px solid rgba(255,255,255,.14);
+      padding-left: 26px;
+    }
+
+    .feature h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.12;
+      letter-spacing: -.055em;
+      font-weight: 950;
+    }
+
+    .orange { color: #ff9f1c; }
+    .blue { color: #6d72ff; }
+    .purple { color: #bb86fc; }
+
+    .small-line {
+      width: 42px;
+      height: 2px;
+      margin: 18px 0;
+      border-radius: 999px;
+      background: currentColor;
+      box-shadow: 0 0 16px currentColor;
+    }
+
+    .feature p {
+      margin: 0;
+      color: rgba(255,255,255,.55);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .dot-wave {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 78px;
+      opacity: .5;
+      mask-image: linear-gradient(to top, black, transparent);
+      background-image: radial-gradient(currentColor 1px, transparent 1.5px);
+      background-size: 10px 10px;
+      animation: waveMove 6s linear infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes ring {
+      0% { transform: scale(.62); opacity: .85; }
+      100% { transform: scale(1.38); opacity: 0; }
+    }
+
+    @keyframes rotate {
+      to { rotate: 360deg; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(.9); opacity: .28; }
+      50% { transform: scale(1.08); opacity: .65; }
+    }
+
+    @keyframes waveMove {
+      to { background-position: 120px 0; }
+    }
+
+    @media (max-width: 1100px) {
+      body { overflow: auto; }
+
+      .why-wrapper {
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 42px 32px;
+      }
+
+      .feature {
+        grid-template-columns: 160px 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="why-wrapper">
+    <div class="card hero interactive-card">
+      <canvas id="neuralCanvas"></canvas>
+
+      <div class="hero-content">
+        <div class="eyebrow">NEDEN BİLİŞİM SCHOOL</div>
+
+        <h1>
+          Hazır paket değil,<br />
+          <strong>kendi teknolojimiz.</strong>
+        </h1>
+
+        <p class="lead">
+          Sahada test edilmiş, Ar-Ge süreçleriyle olgunlaştırılmış ve kuruma özel
+          ölçeklenen çözümler üretiyoruz. Hiçbir şeyi hazır kutuda değil, sizin için
+          inşa ediyoruz.
+        </p>
+      </div>
+
+      <a class="hero-link" href="#">Bizi tanıyın →</a>
+    </div>
+
+    <aside class="card stat interactive-card">
+      <div class="experience-visual">
+        <div class="experience-badge">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M8 21h8" />
+            <path d="M12 17v4" />
+            <path d="M7 4h10v4a5 5 0 0 1-10 0V4Z" />
+            <path d="M17 6h3a3 3 0 0 1-3 3" />
+            <path d="M7 6H4a3 3 0 0 0 3 3" />
+            <path d="M10 9l1.3 1.3L14.5 7" />
+          </svg>
+        </div>
+
+        <div class="rings">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="stat-center">
+        <div class="stat-label">DENEYİM</div>
+        <div class="stat-number" data-count="5">0+</div>
+        <div class="stat-title">Yıl Ar-Ge</div>
+        <div class="stat-desc">
+          Gerçek öğrenci verileriyle sürekli iyileştirme.
+        </div>
+      </div>
+
+      <div class="wave"></div>
+    </aside>
+
+    <div class="bottom">
+      <article class="card feature interactive-card">
+        <div class="feature-no">01</div>
+
+        <div class="visual orange">
+          <div class="people-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="9" cy="8" r="3.2" />
+              <circle cx="17" cy="10" r="2.5" />
+              <path d="M3.8 20c.6-4 3-6.2 5.2-6.2s4.6 2.2 5.2 6.2" />
+              <path d="M13.8 19c.4-3 1.9-4.7 3.3-4.7 1.7 0 3.1 1.8 3.5 4.7" />
+            </svg>
+          </div>
+          <div class="base-rings"></div>
+        </div>
+
+        <div class="feature-content orange">
+          <h3>İki kanal,<br /><span>tek uzmanlık.</span></h3>
+          <div class="small-line"></div>
+          <p>Bireysel öğrenci & kurumsal AI — aynı anda, aynı kalitede.</p>
+        </div>
+
+        <div class="dot-wave orange"></div>
+      </article>
+
+      <article class="card feature interactive-card">
+        <div class="feature-no">02</div>
+
+        <div class="visual blue">
+          <div class="cube-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.5 4.5 6.7 12 11l7.5-4.3L12 2.5Z" />
+              <path d="M4.5 6.7V15L12 19.5V11" />
+              <path d="M19.5 6.7V15L12 19.5" />
+              <path d="M12 11v8.5" />
+            </svg>
+          </div>
+          <div class="base-rings"></div>
+        </div>
+
+        <div class="feature-content blue">
+          <h3>Fikir etkiye<br /><span>dönüşür.</span></h3>
+          <div class="small-line"></div>
+          <p>Eğitim, yazılım, AI ve operasyon tek çatı altında.</p>
+        </div>
+
+        <div class="dot-wave blue"></div>
+      </article>
+
+      <article class="card feature interactive-card">
+        <div class="feature-no">03</div>
+
+        <div class="visual purple">
+          <div class="eco-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="2.5" />
+              <circle cx="12" cy="4.5" r="2" />
+              <circle cx="5" cy="17.5" r="2" />
+              <circle cx="19" cy="17.5" r="2" />
+              <path d="M12 6.5v3" />
+              <path d="M10.2 13.8 6.7 16.5" />
+              <path d="M13.8 13.8l3.5 2.7" />
+              <circle cx="12" cy="12" r="7.4" />
+            </svg>
+          </div>
+          <div class="base-rings"></div>
+        </div>
+
+        <div class="feature-content purple">
+          <h3>Ekosistem<br /><span>yaklaşımı.</span></h3>
+          <div class="small-line"></div>
+          <p>Talent14 · AI-LA · AI Galaxy birbirini besler.</p>
+        </div>
+
+        <div class="dot-wave purple"></div>
+      </article>
+    </div>
+  </section>
+
+  <script>
+    const hero = document.querySelector(".hero");
+    const canvas = document.getElementById("neuralCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height, nodes = [];
+    let mouse = { x: 0, y: 0 };
+
+    function resizeCanvas() {
+      width = canvas.width = hero.offsetWidth;
+      height = canvas.height = hero.offsetHeight;
+
+      nodes = Array.from({ length: 70 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: (Math.random() - 0.5) * 0.28,
+        r: Math.random() * 1.8 + 1
+      }));
+    }
+
+    function drawNetwork() {
+      ctx.clearRect(0, 0, width, height);
+
+      nodes.forEach((node) => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        const dx = node.x - mouse.x;
+        const dy = node.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const boost = Math.max(0, 1 - dist / 280);
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r + boost * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,149,0,${0.25 + boost * 0.65})`;
+        ctx.shadowBlur = 10 + boost * 32;
+        ctx.shadowColor = "#ff9500";
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 150) {
+            const opacity = 1 - dist / 150;
+
+            const gradient = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+            gradient.addColorStop(0, `rgba(255,149,0,${opacity * 0.32})`);
+            gradient.addColorStop(1, `rgba(109,92,207,${opacity * 0.28})`);
+
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawNetwork);
+    }
+
+    document.querySelectorAll(".interactive-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty("--x", `${x}px`);
+        card.style.setProperty("--y", `${y}px`);
+
+        if (card === hero) {
+          mouse.x = x;
+          mouse.y = y;
+        }
+      });
+    });
+
+    hero.addEventListener("mouseleave", () => {
+      mouse.x = width / 2;
+      mouse.y = height / 2;
+    });
+
+    function animateCounter() {
+      const counter = document.querySelector(".stat-number");
+      const target = Number(counter.dataset.count);
+      let current = 0;
+
+      const interval = setInterval(() => {
+        current++;
+        counter.textContent = current + "+";
+        if (current >= target) clearInterval(interval);
+      }, 160);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    resizeCanvas();
+    mouse.x = width / 2;
+    mouse.y = height / 2;
+    drawNetwork();
+    animateCounter();
+  </script>
+</body>
+</html>

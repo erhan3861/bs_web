@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ortak Değerler</title>
+</head>
+<body>
+
+<section class="values-section">
+  <style>
+    .values-section {
+      background: #05050b;
+      color: #fff;
+      font-family: Inter, Arial, sans-serif;
+      padding: 64px 48px;
+      overflow: hidden;
+    }
+
+    .values-title {
+      max-width: 1500px;
+      margin: 0 auto 36px;
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 1;
+      letter-spacing: -0.07em;
+      font-weight: 950;
+    }
+
+    .values-title span {
+      color: #ff9500;
+      font-style: italic;
+      text-shadow: 0 0 28px rgba(255, 149, 0, 0.35);
+    }
+
+    .values-grid {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .value-card {
+      position: relative;
+      min-height: 250px;
+      padding: 28px;
+      border-radius: 22px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 72% 48%, var(--glow), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      transition: transform .35s ease, border-color .35s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color);
+    }
+
+    .value-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: var(--color);
+      background: var(--badge);
+      border: 1px solid var(--border);
+      font-weight: 900;
+      font-size: 14px;
+      margin-bottom: 34px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .value-card h3 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -0.055em;
+      font-weight: 950;
+      position: relative;
+      z-index: 2;
+    }
+
+    .value-card p {
+      margin: 14px 0 0;
+      color: rgba(255,255,255,.55);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 260px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .big-number {
+      position: absolute;
+      right: -10px;
+      bottom: -22px;
+      font-size: 120px;
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      color: var(--color);
+      opacity: .08;
+    }
+
+    .value-visual {
+      position: absolute;
+      right: 28px;
+      top: 54px;
+      width: 150px;
+      height: 150px;
+      display: grid;
+      place-items: center;
+      color: var(--color);
+      opacity: .95;
+    }
+
+    .value-visual svg {
+      width: 86px;
+      height: 86px;
+      stroke: var(--color);
+      fill: none;
+      stroke-width: 1.8;
+      filter: drop-shadow(0 0 16px var(--color));
+      position: relative;
+      z-index: 2;
+    }
+
+    .value-visual::before,
+    .value-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--color);
+      opacity: .35;
+      animation: spin 9s linear infinite;
+    }
+
+    .value-visual::before {
+      width: 138px;
+      height: 70px;
+      transform: rotate(-18deg);
+    }
+
+    .value-visual::after {
+      width: 120px;
+      height: 56px;
+      transform: rotate(28deg);
+      animation-direction: reverse;
+      animation-duration: 12s;
+    }
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(var(--color) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: .16;
+      animation: drift 8s linear infinite;
+      mask-image: linear-gradient(90deg, transparent, black 45%, black);
+    }
+
+    .value-card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 70px;
+      background-image: radial-gradient(var(--color) 1px, transparent 1.5px);
+      background-size: 10px 10px;
+      opacity: .28;
+      mask-image: linear-gradient(to top, black, transparent);
+      animation: wave 5s linear infinite;
+    }
+
+    .orange {
+      --color: #ff9500;
+      --glow: rgba(255,149,0,.18);
+      --border: rgba(255,149,0,.28);
+      --badge: rgba(255,149,0,.1);
+    }
+
+    .blue {
+      --color: #4f83ff;
+      --glow: rgba(79,131,255,.16);
+      --border: rgba(79,131,255,.28);
+      --badge: rgba(79,131,255,.1);
+    }
+
+    .green {
+      --color: #2ee883;
+      --glow: rgba(46,232,131,.14);
+      --border: rgba(46,232,131,.25);
+      --badge: rgba(46,232,131,.1);
+    }
+
+    .purple {
+      --color: #b564ff;
+      --glow: rgba(181,100,255,.16);
+      --border: rgba(181,100,255,.28);
+      --badge: rgba(181,100,255,.1);
+    }
+
+    @keyframes spin {
+      to { rotate: 360deg; }
+    }
+
+    @keyframes drift {
+      to { background-position: 80px 40px; }
+    }
+
+    @keyframes wave {
+      to { background-position: 100px 0; }
+    }
+
+    @media (max-width: 1100px) {
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .values-section {
+        padding: 42px 18px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <h2 class="values-title">
+    Ortak değerlerle <span>güçlü temeller.</span>
+  </h2>
+
+  <div class="values-grid">
+    <article class="value-card orange">
+      <div class="particles"></div>
+      <div class="value-badge">01</div>
+
+      <h3>Odak</h3>
+      <p>Her üye kendi alanında sektörün en iyisi olmayı hedefler.</p>
+
+      <div class="value-visual">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7" />
+          <circle cx="12" cy="12" r="3.5" />
+          <circle cx="12" cy="12" r="1" />
+          <path d="M16.5 7.5 21 3" />
+          <path d="M18 3h3v3" />
+        </svg>
+      </div>
+
+      <div class="big-number">01</div>
+    </article>
+
+    <article class="value-card blue">
+      <div class="particles"></div>
+      <div class="value-badge">02</div>
+
+      <h3>Ar-Ge Ruhu</h3>
+      <p>Sahada test etmeden ölçeklendirmeyiz. Veri önce gelir.</p>
+
+      <div class="value-visual">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 3h4" />
+          <path d="M12 3v6" />
+          <path d="M8 9h8l3 8a3 3 0 0 1-3 4H8a3 3 0 0 1-3-4l3-8Z" />
+          <path d="M8 16h8" />
+          <path d="M10 13h1" />
+          <path d="M14 18h1" />
+        </svg>
+      </div>
+
+      <div class="big-number">02</div>
+    </article>
+
+    <article class="value-card green">
+      <div class="particles"></div>
+      <div class="value-badge">03</div>
+
+      <h3>İş Birliği</h3>
+      <p>Eğitim, teknoloji ve operasyon tek masada buluşur.</p>
+
+      <div class="value-visual">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 12 5.5 9.5a3 3 0 0 1 4.2-4.2L12 7.5" />
+          <path d="M16 12l2.5-2.5a3 3 0 0 0-4.2-4.2L12 7.5" />
+          <path d="M8 12l4 4 4-4" />
+          <path d="M10 18h4" />
+        </svg>
+      </div>
+
+      <div class="big-number">03</div>
+    </article>
+
+    <article class="value-card purple">
+      <div class="particles"></div>
+      <div class="value-badge">04</div>
+
+      <h3>Uzun Vade</h3>
+      <p>Kısa vadeli kazanım değil, kalıcı ekosistem değeri.</p>
+
+      <div class="value-visual">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 8c-3 0-5 2-5 4s2 4 5 4c2.5 0 4.2-2.2 5-4 .8-1.8 2.5-4 5-4 3 0 5 2 5 4s-2 4-5 4c-2.5 0-4.2-2.2-5-4-.8-1.8-2.5-4-5-4Z" />
+        </svg>
+      </div>
+
+      <div class="big-number">04</div>
+    </article>
+  </div>
+</section>
+
+</body>
+</html>
