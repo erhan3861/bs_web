@@ -6,187 +6,123 @@
   <title>Hikayemiz</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       background: #05050b;
-      color: #fff;
+      color: white;
       font-family: Inter, Arial, sans-serif;
     }
 
     .story-section {
       min-height: 100vh;
-      padding: 80px 52px;
+      padding: 80px 64px;
       display: flex;
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(circle at 22% 20%, rgba(255,149,0,.08), transparent 30%),
-        radial-gradient(circle at 82% 56%, rgba(109,92,207,.16), transparent 34%),
+        radial-gradient(circle at 20% 15%, rgba(255, 149, 0, 0.07), transparent 30%),
+        radial-gradient(circle at 82% 62%, rgba(109, 92, 207, 0.13), transparent 34%),
         #05050b;
       overflow: hidden;
     }
 
     .story-container {
       width: 100%;
-      max-width: 1460px;
+      max-width: 1420px;
       display: grid;
       grid-template-columns: 1fr 560px;
-      gap: 90px;
+      gap: 86px;
       align-items: center;
     }
 
-    .story-left {
-      position: relative;
-      z-index: 2;
-      max-width: 780px;
-    }
-
-    .story-left::before {
-      content: "";
-      position: absolute;
-      left: -42px;
-      top: 92px;
-      width: 4px;
-      height: 260px;
-      border-radius: 999px;
-      background: linear-gradient(to bottom, #ff9500, rgba(255,149,0,.15), rgba(181,100,255,.45));
-      box-shadow: 0 0 28px rgba(255,149,0,.35);
-    }
-
-    .story-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #ff9500;
-      font-size: 13px;
-      letter-spacing: .22em;
-      font-weight: 950;
-      margin-bottom: 28px;
-    }
-
-    .story-kicker span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #ff9500;
-      box-shadow: 0 0 18px #ff9500;
-    }
-
-    .story-lead {
+    /* SOL TARAF — MEVCUT METİN YAPISI KORUNDU */
+    .story-left h2 {
       margin: 0;
-      max-width: 760px;
-      font-size: clamp(38px, 4.3vw, 68px);
-      line-height: 1.04;
-      letter-spacing: -.075em;
-      font-weight: 950;
-      color: rgba(255,255,255,.94);
-    }
-
-    .story-lead span {
-      color: #ff9500;
-      font-style: italic;
-      text-shadow: 0 0 34px rgba(255,149,0,.34);
-    }
-
-    .story-copy {
-      margin-top: 34px;
-      display: grid;
-      gap: 22px;
       max-width: 720px;
+      font-size: 25px;
+      line-height: 1.55;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.86);
     }
 
-    .story-copy p {
-      margin: 0;
-      color: rgba(255,255,255,.58);
+    .story-left p {
+      max-width: 720px;
+      margin: 34px 0 0;
+      color: rgba(255, 255, 255, 0.46);
       font-size: 18px;
       line-height: 1.75;
+      font-weight: 600;
     }
 
-    .story-metrics {
-      margin-top: 38px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 720px;
-    }
-
-    .story-metrics div {
+    /* SAĞ TARAF */
+    .ecosystem-card {
       position: relative;
+      min-height: 470px;
+      border-radius: 30px;
       overflow: hidden;
-      padding: 18px 20px;
-      border-radius: 18px;
+      padding: 34px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,149,0,.12), transparent 45%),
-        rgba(255,255,255,.035);
-      border: 1px solid rgba(255,255,255,.09);
+        radial-gradient(circle at 50% 48%, rgba(255, 149, 0, 0.18), transparent 22%),
+        radial-gradient(circle at 28% 22%, rgba(79, 131, 255, 0.16), transparent 32%),
+        radial-gradient(circle at 84% 82%, rgba(181, 100, 255, 0.18), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
     }
 
-    .story-metrics div::after {
+    .ecosystem-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255,149,0,.13), transparent);
-      transform: translateX(-100%);
-      animation: metricScan 4s ease-in-out infinite;
+      background-image:
+        radial-gradient(rgba(255,255,255,.35) 1px, transparent 1.5px),
+        radial-gradient(rgba(255,149,0,.32) 1px, transparent 1.5px);
+      background-size: 42px 42px, 70px 70px;
+      background-position: 0 0, 20px 20px;
+      opacity: 0.12;
+      animation: stars 14s linear infinite;
     }
 
-    .story-metrics strong {
-      display: block;
-      color: #fff;
-      font-size: 22px;
-      font-weight: 950;
-      letter-spacing: -.04em;
-    }
-
-    .story-metrics span {
-      display: block;
-      margin-top: 6px;
-      color: rgba(255,255,255,.48);
+    .ecosystem-title {
+      position: relative;
+      z-index: 5;
+      color: rgba(255,255,255,0.48);
       font-size: 13px;
-      font-weight: 700;
-    }
-
-    .universe-panel {
-      position: relative;
-      height: 520px;
-      border-radius: 32px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 48%, rgba(255,149,0,.18), transparent 22%),
-        radial-gradient(circle at 30% 25%, rgba(79,131,255,.13), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(181,100,255,.16), transparent 32%),
-        linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 30px 90px rgba(0,0,0,.32);
-    }
-
-    .universe-panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,.35) 1px, transparent 1.5px);
-      background-size: 42px 42px;
-      opacity: .11;
-      animation: stars 12s linear infinite;
+      letter-spacing: 0.19em;
+      font-weight: 950;
     }
 
     .core {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 130px;
-      height: 130px;
+      width: 118px;
+      height: 118px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: rgba(255,149,0,.1);
-      border: 1px solid rgba(255,149,0,.42);
-      box-shadow: 0 0 48px rgba(255,149,0,.5), inset 0 0 34px rgba(255,149,0,.18);
-      z-index: 3;
-      animation: floatCore 3.5s ease-in-out infinite;
+      z-index: 4;
+      background: rgba(255,149,0,.12);
+      border: 1px solid rgba(255,149,0,.44);
+      box-shadow:
+        0 0 55px rgba(255,149,0,.52),
+        inset 0 0 30px rgba(255,149,0,.18);
+      animation: coreFloat 3.5s ease-in-out infinite;
+    }
+
+    .core svg {
+      width: 54px;
+      height: 54px;
+      stroke: #ff9500;
+      fill: none;
+      stroke-width: 1.8;
+      filter: drop-shadow(0 0 14px #ff9500);
     }
 
     .core::before,
@@ -194,206 +130,218 @@
       content: "";
       position: absolute;
       border-radius: 50%;
-      border: 1px solid rgba(255,149,0,.26);
-      animation: pulse 3s ease-out infinite;
+      border: 1px solid rgba(255,149,0,.25);
+      animation: pulseRing 3s ease-out infinite;
     }
 
-    .core::before { inset: -34px; }
-    .core::after { inset: -72px; animation-delay: .8s; }
+    .core::before {
+      inset: -36px;
+    }
 
-    .core svg {
-      width: 58px;
-      height: 58px;
-      stroke: #ff9500;
-      fill: none;
-      stroke-width: 1.8;
-      filter: drop-shadow(0 0 14px #ff9500);
+    .core::after {
+      inset: -74px;
+      animation-delay: .8s;
     }
 
     .orbit {
       position: absolute;
       left: 50%;
       top: 50%;
-      border: 1px solid rgba(255,255,255,.13);
       border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.13);
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
 
-    .orbit.one {
+    .orbit-1 {
       width: 360px;
-      height: 210px;
-      animation: rotateOrbit 18s linear infinite;
+      height: 220px;
+      animation: orbitSpin 18s linear infinite;
     }
 
-    .orbit.two {
-      width: 450px;
-      height: 290px;
-      animation: rotateOrbit 24s linear infinite reverse;
-    }
-
-    .product-card {
-      position: absolute;
-      width: 210px;
-      min-height: 92px;
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid var(--border);
-      box-shadow: 0 0 34px var(--glow);
-      z-index: 4;
-      transition: transform .35s ease, border-color .35s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      border-color: var(--color);
-    }
-
-    .product-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(circle at 20% 20%, var(--glow), transparent 54%);
-      pointer-events: none;
-    }
-
-    .product-card h3,
-    .product-card p {
-      position: relative;
-      z-index: 2;
-    }
-
-    .product-card h3 {
-      margin: 0 0 8px;
-      color: var(--color);
-      font-size: 17px;
-      font-weight: 950;
-    }
-
-    .product-card p {
-      margin: 0;
-      color: rgba(255,255,255,.62);
-      font-size: 13.5px;
-      line-height: 1.45;
-    }
-
-    .talent {
-      --color: #4f83ff;
-      --border: rgba(79,131,255,.34);
-      --glow: rgba(79,131,255,.18);
-      left: 38px;
-      top: 86px;
-    }
-
-    .aila {
-      --color: #ff9500;
-      --border: rgba(255,149,0,.36);
-      --glow: rgba(255,149,0,.2);
-      right: 38px;
-      top: 202px;
-    }
-
-    .galaxy {
-      --color: #b564ff;
-      --border: rgba(181,100,255,.36);
-      --glow: rgba(181,100,255,.2);
-      left: 90px;
-      bottom: 66px;
+    .orbit-2 {
+      width: 470px;
+      height: 310px;
+      animation: orbitSpin 26s linear infinite reverse;
     }
 
     .beam {
       position: absolute;
       left: 50%;
       top: 50%;
+      width: 260px;
       height: 1px;
-      width: 250px;
-      background: linear-gradient(90deg, rgba(255,149,0,0), rgba(255,149,0,.75), rgba(181,100,255,0));
       transform-origin: left center;
-      opacity: .55;
-      animation: beamPulse 2.5s ease-in-out infinite;
+      background: linear-gradient(90deg, transparent, rgba(255,149,0,.75), transparent);
+      opacity: .58;
       z-index: 2;
+      animation: beamPulse 2.6s ease-in-out infinite;
     }
 
-    .beam.b1 { transform: rotate(205deg); }
-    .beam.b2 { transform: rotate(-18deg); animation-delay: .5s; }
-    .beam.b3 { transform: rotate(126deg); animation-delay: 1s; }
+    .beam-1 { transform: rotate(210deg); }
+    .beam-2 { transform: rotate(-22deg); animation-delay: .45s; }
+    .beam-3 { transform: rotate(128deg); animation-delay: .9s; }
 
-    .mini-stat {
+    .product {
+      position: absolute;
+      z-index: 5;
+      width: 220px;
+      min-height: 104px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid var(--border);
+      box-shadow: 0 0 36px var(--glow);
+      backdrop-filter: blur(18px);
+      transition: transform .35s ease, border-color .35s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: var(--color);
+    }
+
+    .product h3 {
+      margin: 0 0 9px;
+      color: var(--color);
+      font-size: 19px;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+    }
+
+    .product p {
+      margin: 0;
+      color: rgba(255,255,255,.62);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .product::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 20% 20%, var(--glow), transparent 55%);
+      pointer-events: none;
+    }
+
+    .talent {
+      --color: #4f83ff;
+      --border: rgba(79,131,255,.38);
+      --glow: rgba(79,131,255,.2);
+      left: 46px;
+      top: 96px;
+    }
+
+    .aila {
+      --color: #ff9500;
+      --border: rgba(255,149,0,.4);
+      --glow: rgba(255,149,0,.24);
+      right: 46px;
+      top: 190px;
+    }
+
+    .galaxy {
+      --color: #b564ff;
+      --border: rgba(181,100,255,.42);
+      --glow: rgba(181,100,255,.24);
+      left: 96px;
+      bottom: 82px;
+    }
+
+    .bottom-stats {
       position: absolute;
       left: 34px;
-      bottom: 28px;
       right: 34px;
+      bottom: 28px;
+      z-index: 6;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      z-index: 5;
     }
 
-    .mini-stat span {
-      padding: 11px 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(255,255,255,.09);
-      color: rgba(255,255,255,.62);
-      font-size: 12px;
-      font-weight: 800;
+    .bottom-stats span {
+      padding: 12px 10px;
+      border-radius: 15px;
       text-align: center;
-    }
-
-    @keyframes metricScan {
-      0%, 60% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      font-size: 13px;
+      font-weight: 900;
+      color: rgba(255,255,255,.65);
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.1);
     }
 
     @keyframes stars {
-      to { background-position: 110px 80px; }
+      to {
+        background-position: 120px 80px, -90px 60px;
+      }
     }
 
-    @keyframes floatCore {
-      0%,100% { transform: translate(-50%, -50%) translateY(0); }
-      50% { transform: translate(-50%, -50%) translateY(-10px); }
+    @keyframes coreFloat {
+      0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+      }
+      50% {
+        transform: translate(-50%, -50%) translateY(-10px);
+      }
     }
 
-    @keyframes pulse {
-      0% { transform: scale(.75); opacity: .8; }
-      100% { transform: scale(1.3); opacity: 0; }
+    @keyframes pulseRing {
+      0% {
+        transform: scale(.72);
+        opacity: .82;
+      }
+      100% {
+        transform: scale(1.32);
+        opacity: 0;
+      }
     }
 
-    @keyframes rotateOrbit {
-      to { rotate: 360deg; }
+    @keyframes orbitSpin {
+      to {
+        rotate: 360deg;
+      }
     }
 
     @keyframes beamPulse {
-      0%,100% { opacity: .25; }
-      50% { opacity: .8; }
+      0%, 100% {
+        opacity: .22;
+      }
+      50% {
+        opacity: .78;
+      }
     }
 
     @media (max-width: 1050px) {
-      .story-section { padding: 56px 22px; }
+      .story-section {
+        padding: 56px 22px;
+      }
+
       .story-container {
         grid-template-columns: 1fr;
         gap: 44px;
       }
-      .story-left::before { display: none; }
     }
 
     @media (max-width: 620px) {
-      .story-metrics { grid-template-columns: 1fr; }
+      .ecosystem-card {
+        min-height: 640px;
+      }
 
-      .universe-panel { height: 620px; }
-
-      .product-card {
+      .product {
         width: calc(100% - 48px);
         left: 24px !important;
         right: auto !important;
       }
 
-      .talent { top: 36px; }
-      .aila { top: 170px; }
-      .galaxy { bottom: 120px; }
-      .mini-stat { grid-template-columns: 1fr; }
+      .talent { top: 80px; }
+      .aila { top: 210px; }
+      .galaxy { bottom: 135px; }
+
+      .bottom-stats {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -401,55 +349,37 @@
 <body>
   <section class="story-section">
     <div class="story-container">
+
       <div class="story-left">
-        <div class="story-kicker">
-          <span></span>
-          HİKAYEMİZ
-        </div>
+        <h2>
+          Bilişim School; eğitim teknolojisi alanında beş yılı aşkın süredir
+          faaliyet gösteren, kendi ürünlerini geliştiren ve kurumlarla stratejik
+          iş birlikleri kuran bir çatı markadır.
+        </h2>
 
-        <h1 class="story-lead">
-          Beş yılı aşkın süredir
-          <span>kendi ürünlerini geliştiren</span>,
-          sahada test eden ve kurumlarla stratejik iş birlikleri kuran
-          bir eğitim teknolojileri çatısıyız.
-        </h1>
+        <p>
+          İlk günden itibaren hazır çözümler satmak yerine, sahada test edilen ve gerçek
+          ihtiyaçlara yanıt veren özgün sistemler geliştirmeyi tercih ettik.
+        </p>
 
-        <div class="story-copy">
-          <p>
-            Hazır çözümler satmak yerine; gerçek ihtiyaçlara yanıt veren,
-            sahada karşılığı olan ve kurumlara özel ölçeklenebilen sistemler geliştiriyoruz.
-          </p>
-
-          <p>
-            50'den fazla kurum ve kuruluşla kurduğumuz iş birlikleri,
-            TalentHUB yetenek havuzumuz, TalentCup yarışmamız ve Dijitale Yön Veren Gençlik programımız;
-            üretim odaklı yaklaşımımızın somut çıktılarıdır.
-          </p>
-        </div>
-
-        <div class="story-metrics">
-          <div>
-            <strong>5+ yıl</strong>
-            <span>Ar-Ge deneyimi</span>
-          </div>
-          <div>
-            <strong>50+</strong>
-            <span>kurum iş birliği</span>
-          </div>
-          <div>
-            <strong>3 ürün</strong>
-            <span>tek ekosistem</span>
-          </div>
-        </div>
+        <p>
+          50'den fazla kurum ve kuruluşla kurduğumuz iş birlikleri, TalentHUB yetenek
+          havuzumuz, TalentCup yarışmamız ve Dijitale Yön Veren Gençlik programımız;
+          üretim odaklı bu anlayışın somut çıktılarıdır.
+        </p>
       </div>
 
-      <div class="universe-panel">
-        <div class="orbit one"></div>
-        <div class="orbit two"></div>
+      <div class="ecosystem-card">
+        <div class="ecosystem-title">
+          BUGÜN ÜÇ ÜRÜNLE, İKİ KANALDA FAALİYET GÖSTERİYORUZ:
+        </div>
 
-        <div class="beam b1"></div>
-        <div class="beam b2"></div>
-        <div class="beam b3"></div>
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+
+        <div class="beam beam-1"></div>
+        <div class="beam beam-2"></div>
+        <div class="beam beam-3"></div>
 
         <div class="core">
           <svg viewBox="0 0 24 24">
@@ -458,29 +388,29 @@
           </svg>
         </div>
 
-        <article class="product-card talent">
+        <article class="product talent">
           <h3>Talent14</h3>
           <p>K12 öğrencilerini üretim becerisiyle donatıyor.</p>
         </article>
 
-        <article class="product-card aila">
+        <article class="product aila">
           <h3>AI-LA</h3>
           <p>Okullara ve platformlara güvenli yapay zekâ altyapısı kuruyor.</p>
         </article>
 
-        <article class="product-card galaxy">
+        <article class="product galaxy">
           <h3>AI Galaxy</h3>
           <p>Yaratıcı içerik üretimini herkes için erişilebilir hale getiriyor.</p>
         </article>
 
-        <div class="mini-stat">
+        <!-- <div class="bottom-stats">
           <span>3 Ürün</span>
           <span>2 Kanal</span>
           <span>Tek Ekosistem</span>
-        </div>
+        </div> -->
       </div>
+
     </div>
   </section>
 </body>
 </html>
-
